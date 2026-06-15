@@ -17,108 +17,181 @@
   --tx:#1e293b;--mu:#64748b;--sb:#1e293b;--sbt:#94a3b8;
   --sba:#3b82f6;--sbw:240px;--tbh:60px;
 }
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);font-size:14px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--tx);font-size:14px;min-height:100vh}
 button{cursor:pointer;border:none;outline:none;font-family:inherit;font-size:14px}
-input,select,textarea{font-family:inherit;font-size:14px;outline:none;border:1px solid var(--br);border-radius:8px;padding:8px 12px;width:100%;background:#fff;color:var(--tx);transition:.2s}
+input,select,textarea{font-family:inherit;font-size:14px;outline:none;border:1.5px solid var(--br);border-radius:8px;padding:8px 12px;width:100%;background:#fff;color:var(--tx);transition:.2s}
 input:focus,select:focus,textarea:focus{border-color:var(--pr);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
 .hidden{display:none!important}
-.scr{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea,#764ba2);z-index:100;padding:20px}
-.sc{background:#fff;border-radius:20px;padding:36px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:up .4s}
-@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.logo{text-align:center;margin-bottom:24px}
-.logo-ic{width:64px;height:64px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:10px}
-.logo h1{font-size:22px;font-weight:700}.logo p{color:var(--mu);font-size:13px;margin-top:3px}
+
+/* ── AUTH SCREENS: full-screen split layout ── */
+.scr{position:fixed;inset:0;display:flex;z-index:100}
+.scr-panel-l{
+  flex:1;
+  background:linear-gradient(145deg,#1e3a8a 0%,#2563eb 45%,#7c3aed 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px;color:#fff;position:relative;overflow:hidden;
+}
+.scr-panel-l::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.scr-panel-l-inner{position:relative;z-index:1;text-align:center;max-width:380px}
+.scr-panel-l .big-icon{font-size:72px;margin-bottom:20px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.3))}
+.scr-panel-l h1{font-size:32px;font-weight:800;margin-bottom:12px;letter-spacing:-.5px}
+.scr-panel-l p{font-size:15px;opacity:.8;line-height:1.7}
+.scr-panel-l .features{margin-top:32px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.scr-panel-l .feat{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;backdrop-filter:blur(4px)}
+.scr-panel-l .feat span{font-size:14px;opacity:.9}
+.scr-panel-r{
+  width:480px;min-width:480px;background:#fff;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:48px 40px;overflow-y:auto;
+}
+.sc{width:100%;max-width:400px}
+.sc-mini-logo{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+.sc-mini-logo .mic{width:42px;height:42px;background:linear-gradient(135deg,#2563eb,#7c3aed);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sc-mini-logo h2{font-size:20px;font-weight:800;color:var(--tx)}
+.sc-mini-logo p{font-size:12px;color:var(--mu);margin-top:1px}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.sc{animation:up .4s}
+
+/* Mobile: hide left panel, full-width right */
+@media(max-width:860px){
+  .scr{background:linear-gradient(145deg,#1e3a8a,#7c3aed)}
+  .scr-panel-l{display:none}
+  .scr-panel-r{width:100%;min-width:0;padding:32px 20px;background:transparent}
+  .sc{background:#fff;border-radius:20px;padding:28px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+}
+
+/* ── BUTTONS ── */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-weight:600;transition:.2s;white-space:nowrap;border:none;cursor:pointer}
-.bp{background:var(--pr);color:#fff}.bp:hover{background:var(--prd)}
-.bg_{background:transparent;color:var(--mu);border:1px solid var(--br)}.bg_:hover{background:var(--bg)}
-.bsm{padding:6px 12px;font-size:13px}
-.fg{margin-bottom:14px}
-.fg label{display:block;font-size:11px;font-weight:700;color:var(--mu);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
-.fr{display:grid;gap:12px;grid-template-columns:1fr 1fr}
-.fh{font-size:12px;color:var(--mu);margin-top:4px}
-.info-box{background:#f8fafc;border-radius:10px;padding:14px;font-size:12px;color:var(--mu);line-height:1.9;margin-top:14px}
-.step{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--pr);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center;margin-right:4px}
-.g-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border:2px solid var(--br);border-radius:12px;background:#fff;color:var(--tx);font-size:15px;font-weight:600;transition:.2s;cursor:pointer}
-.g-btn:hover{border-color:var(--pr);background:var(--prl)}
+.bp{background:var(--pr);color:#fff}.bp:hover{background:var(--prd);transform:translateY(-1px)}
+.bg_{background:transparent;color:var(--mu);border:1.5px solid var(--br)}.bg_:hover{background:var(--bg)}
+.bsm{padding:6px 14px;font-size:12px}
+.g-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border:2px solid var(--br);border-radius:12px;background:#fff;color:var(--tx);font-size:15px;font-weight:600;transition:.2s;cursor:pointer}
+.g-btn:hover{border-color:var(--pr);background:var(--prl);transform:translateY(-1px)}
 .g-btn img{width:22px}
-#app{display:none;height:100vh;overflow:hidden}
+
+/* ── FORM ELEMENTS ── */
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--mu);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px}
+.fr{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.fh{font-size:11px;color:var(--mu);margin-top:5px}
+.info-box{background:#f8fafc;border:1px solid var(--br);border-radius:10px;padding:14px;font-size:12px;color:var(--mu);line-height:1.9;margin-top:14px}
+.step{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--pr);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center;margin-right:4px}
+
+/* ── MAIN APP ── */
+#app{display:none;width:100vw;height:100vh;overflow:hidden;flex-direction:row}
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sbw);background:var(--sb);display:flex;flex-direction:column;z-index:50;transition:.3s}
 .sb-head{padding:16px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
 .brand{display:flex;align-items:center;gap:10px;color:#fff;font-size:15px;font-weight:700}
-.bic{width:32px;height:32px;background:linear-gradient(135deg,#3b82f6,#7c3aed);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.bic{width:34px;height:34px;background:linear-gradient(135deg,#3b82f6,#7c3aed);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .sb-nav{flex:1;overflow-y:auto;padding:8px}
-.ns{color:var(--sbt);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:10px 8px 3px}
-.ni{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:9px;color:var(--sbt);cursor:pointer;transition:.2s;margin-bottom:2px}
+.ns{color:var(--sbt);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:12px 8px 4px}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;color:var(--sbt);cursor:pointer;transition:.15s;margin-bottom:2px}
 .ni:hover{background:rgba(255,255,255,.08);color:#fff}
 .ni.act{background:var(--sba);color:#fff}
-.ni .ic{font-size:14px;width:18px;text-align:center}
+.ni .ic{font-size:15px;width:20px;text-align:center}
 .ni span{font-size:13px;font-weight:500}
 .sb-foot{padding:8px;border-top:1px solid rgba(255,255,255,.08)}
 .uinf{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px}
-.uav{width:32px;height:32px;border-radius:50%;background:var(--sba);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;overflow:hidden}
+.uav{width:34px;height:34px;border-radius:50%;background:var(--sba);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;flex-shrink:0;overflow:hidden}
 .uav img{width:100%;height:100%;object-fit:cover}
 .udt{flex:1;min-width:0}
 .un{color:#fff;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ue{color:var(--sbt);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.lob{background:transparent;color:var(--sbt);padding:5px;border-radius:6px;font-size:14px;transition:.2s}
-.lob:hover{color:#fff;background:rgba(255,255,255,.1)}
-.main{margin-left:var(--sbw);height:100vh;display:flex;flex-direction:column;overflow:hidden}
-.tb{height:var(--tbh);background:#fff;border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 20px;gap:12px;flex-shrink:0}
+.lob{background:transparent;color:var(--sbt);padding:5px;border-radius:6px;font-size:16px;transition:.2s;line-height:1}
+.lob:hover{color:#fff;background:rgba(255,255,255,.12)}
+.main{margin-left:var(--sbw);height:100vh;display:flex;flex-direction:column;overflow:hidden;flex:1}
+.tb{height:var(--tbh);background:#fff;border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;gap:12px;flex-shrink:0}
 .ham{display:none;flex-direction:column;gap:4px;background:transparent;padding:8px;border-radius:8px}
 .ham span{width:20px;height:2px;background:var(--tx);border-radius:2px;display:block}
 .tb-title{font-size:16px;font-weight:700;flex:1}
-.synb{font-size:11px;padding:3px 8px;border-radius:20px;background:var(--okl);color:var(--ok);font-weight:600}
+.synb{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--okl);color:var(--ok);font-weight:600}
 .synb.sv{background:var(--wnl);color:var(--wn)}.synb.er{background:var(--erl);color:var(--er)}
-.cont{flex:1;overflow-y:auto;padding:20px}
+.cont{flex:1;overflow-y:auto;padding:24px}
 .sec{display:none}.sec.act{display:block}
-.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
-.sc2{background:#fff;border-radius:12px;padding:16px;border:1px solid var(--br)}
-.sl{font-size:11px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.sv2{font-size:24px;font-weight:700;margin-bottom:2px}
-.ss{font-size:11px;color:var(--mu)}
-.sico{float:right;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.card{background:#fff;border-radius:12px;border:1px solid var(--br);margin-bottom:16px;overflow:hidden}
-.ch{padding:13px 17px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* ── STATS GRID ── */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.sc2{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--br);transition:.2s}
+.sc2:hover{box-shadow:0 4px 16px rgba(0,0,0,.06);transform:translateY(-1px)}
+.sl{font-size:11px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.sv2{font-size:26px;font-weight:800;margin-bottom:3px;letter-spacing:-.5px}
+.ss{font-size:12px;color:var(--mu)}
+.sico{float:right;width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:14px;border:1px solid var(--br);margin-bottom:18px;overflow:hidden}
+.ch{padding:14px 18px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .ct{font-size:14px;font-weight:700}.cb{padding:16px}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+/* ── TABLES ── */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
-th{background:#f8fafc;padding:8px 12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);white-space:nowrap}
-td{padding:10px 12px;border-top:1px solid var(--br);font-size:13px}
-tr:hover td{background:#f8fafc}
-.bdg{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600}
+thead{position:sticky;top:0;z-index:1}
+th{background:#f8fafc;padding:10px 14px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--mu);white-space:nowrap;border-bottom:2px solid var(--br)}
+td{padding:11px 14px;border-bottom:1px solid #f1f5f9;font-size:13px;vertical-align:middle}
+tbody tr:hover td{background:#fafbff}
+tbody tr:last-child td{border-bottom:none}
+
+/* ── BADGES ── */
+.bdg{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
 .bok{background:var(--okl);color:var(--ok)}.bwn{background:var(--wnl);color:var(--wn)}.ber{background:var(--erl);color:var(--er)}.bin{background:var(--prl);color:var(--pr)}
+
+/* ── ACTION BUTTONS ── */
 .acts{display:flex;gap:5px}
-.ib{width:27px;height:27px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--mu);transition:.2s;font-size:13px;cursor:pointer;border:none}
+.ib{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--mu);transition:.2s;font-size:13px;cursor:pointer;border:none}
 .ib:hover{background:var(--prl);color:var(--pr)}.ib.dl:hover{background:var(--erl);color:var(--er)}
-.mb{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:16px}
+
+/* ── INGREDIENTS SECTION ── */
+.ing-toolbar{display:flex;gap:10px;padding:14px 18px;background:#fafbff;border-bottom:1px solid var(--br);flex-wrap:wrap;align-items:center}
+.ing-search{position:relative;flex:1;min-width:200px}
+.ing-search input{padding-left:36px;background:#fff}
+.ing-search::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;pointer-events:none}
+.ing-filter select{width:auto;min-width:150px}
+.ing-count{font-size:12px;color:var(--mu);white-space:nowrap;margin-left:auto}
+.ing-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:14px 18px;background:#f8fafc;border-bottom:1px solid var(--br)}
+.ing-stat{text-align:center}
+.ing-stat-val{font-size:18px;font-weight:800;color:var(--pr)}
+.ing-stat-lbl{font-size:10px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-top:1px}
+
+/* ── MODALS ── */
+.mb{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
 .mb.open{display:flex}
-.mo{background:#fff;border-radius:14px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:up .3s}
-.mh{padding:16px 20px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
-.mt{font-size:14px;font-weight:700}
-.mc{width:27px;height:27px;border-radius:7px;background:var(--bg);color:var(--mu);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none}
+.mo{background:#fff;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,.3);animation:up .3s}
+.mh{padding:18px 22px;border-bottom:1px solid var(--br);display:flex;align-items:center;justify-content:space-between}
+.mt{font-size:15px;font-weight:700}.mc{width:30px;height:30px;border-radius:8px;background:var(--bg);color:var(--mu);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:.2s}
 .mc:hover{background:var(--erl);color:var(--er)}
-.mbd{padding:20px}.mf{padding:13px 20px;border-top:1px solid var(--br);display:flex;justify-content:flex-end;gap:8px}
-.tw2{position:fixed;top:16px;right:16px;z-index:999;display:flex;flex-direction:column;gap:8px}
-.toast{padding:10px 14px;border-radius:9px;color:#fff;font-size:13px;font-weight:500;box-shadow:0 4px 12px rgba(0,0,0,.2);animation:up .3s;display:flex;align-items:center;gap:8px;max-width:300px}
+.mbd{padding:20px}.mf{padding:14px 20px;border-top:1px solid var(--br);display:flex;justify-content:flex-end;gap:8px}
+
+/* ── TOAST ── */
+.tw2{position:fixed;top:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px}
+.toast{padding:11px 16px;border-radius:10px;color:#fff;font-size:13px;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.2);animation:up .3s;display:flex;align-items:center;gap:8px;max-width:320px}
 .tok{background:var(--ok)}.ter{background:var(--er)}.tin{background:var(--pr)}
+
+/* ── MISC ── */
 .cw{position:relative;height:200px}
-.empty{text-align:center;padding:40px 20px;color:var(--mu)}
-.eic{font-size:40px;margin-bottom:8px}
-.empty h3{font-size:14px;font-weight:600;color:var(--tx);margin-bottom:3px}
-.pb{height:7px;background:var(--br);border-radius:4px;overflow:hidden}
+.empty{text-align:center;padding:48px 20px;color:var(--mu)}
+.eic{font-size:48px;margin-bottom:10px}
+.empty h3{font-size:15px;font-weight:600;color:var(--tx);margin-bottom:4px}
+.pb{height:7px;background:var(--br);border-radius:4px;overflow:hidden;margin-top:5px}
 .pf{height:100%;border-radius:4px;background:var(--pr);transition:.5s}
 .pf.wn{background:var(--wn)}.pf.er{background:var(--er)}
 .tup{color:var(--er)}.tdn{color:var(--ok)}.tfl{color:var(--mu)}
 #sov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:49}
-@media(max-width:1024px){.sg{grid-template-columns:1fr 1fr}}
-@media(max-width:768px){
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){.sg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1024px){.sg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:860px){
   .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}
   #sov.open{display:block}.main{margin-left:0}.ham{display:flex}
   .sg{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}.fr{grid-template-columns:1fr}
   .cont{padding:14px}
 }
-@media(max-width:480px){.sg{grid-template-columns:1fr}.sv2{font-size:20px}}
+@media(max-width:480px){.sg{grid-template-columns:1fr}.sv2{font-size:20px}.ing-stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -126,65 +199,120 @@ tr:hover td{background:#f8fafc}
 
 <!-- ═══ SCREEN: CONFIG ═══ -->
 <div class="scr" id="scrCfg">
-  <div class="sc">
-    <div class="logo"><div class="logo-ic">🍽️</div><h1>FoodCost Pro</h1><p>ตั้งค่าครั้งแรก (ทำแค่ครั้งเดียว)</p></div>
-    <div class="fg">
-      <label>Google OAuth Client ID *</label>
-      <input id="cfgClientId" type="text" placeholder="xxxxxxxxxxxx.apps.googleusercontent.com">
-      <div class="fh">สร้างที่ <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a> → Credentials → OAuth 2.0 Client IDs</div>
+  <div class="scr-panel-l">
+    <div class="scr-panel-l-inner">
+      <div class="big-icon">🍽️</div>
+      <h1>FoodCost Pro</h1>
+      <p>ระบบคำนวณต้นทุนอาหารมืออาชีพ<br>เชื่อมต่อ Google Sheets ของคุณ</p>
+      <div class="features">
+        <div class="feat"><span>📊</span><span>วิเคราะห์ Food Cost % แบบเรียลไทม์</span></div>
+        <div class="feat"><span>🧂</span><span>จัดการวัตถุดิบและราคาอัตโนมัติ</span></div>
+        <div class="feat"><span>📦</span><span>ติดตามสต๊อกและแจ้งเตือนขาดแคลน</span></div>
+        <div class="feat"><span>☁️</span><span>ข้อมูลเก็บบน Google Sheets ของคุณ</span></div>
+      </div>
     </div>
-    <div class="fg">
-      <label>ชื่อระบบ / ชื่อร้าน</label>
-      <input id="cfgName" type="text" placeholder="ร้านอาหาร...">
-    </div>
-    <button class="btn bp" style="width:100%;justify-content:center;padding:13px;font-size:15px" onclick="saveConfig()">บันทึกและไปต่อ →</button>
-    <div class="info-box">
-      <strong>ตั้งค่าครั้งเดียว (~5 นาที):</strong><br>
-      <span class="step">1</span>เปิด <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → New Project<br>
-      <span class="step">2</span>APIs & Services → Enable: <strong>Google Sheets API</strong><br>
-      <span class="step">3</span>Credentials → Create OAuth 2.0 Client ID → Web Application<br>
-      <span class="step">4</span>ใส่ URL ของเว็บนี้ใน <strong>Authorized JavaScript Origins</strong><br>
-      <span class="step">5</span>Copy Client ID → วางด้านบน ✅
+  </div>
+  <div class="scr-panel-r">
+    <div class="sc">
+      <div class="sc-mini-logo">
+        <div class="mic">🍽️</div>
+        <div><h2>FoodCost Pro</h2><p>ตั้งค่าครั้งแรก (ทำแค่ครั้งเดียว)</p></div>
+      </div>
+      <div class="fg">
+        <label>Google OAuth Client ID *</label>
+        <input id="cfgClientId" type="text" placeholder="xxxxxxxxxxxx.apps.googleusercontent.com">
+        <div class="fh">สร้างที่ <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a> → Credentials → OAuth 2.0 Client IDs</div>
+      </div>
+      <div class="fg">
+        <label>ชื่อระบบ / ชื่อร้าน</label>
+        <input id="cfgName" type="text" placeholder="ร้านอาหาร...">
+      </div>
+      <button class="btn bp" style="width:100%;justify-content:center;padding:14px;font-size:15px" onclick="saveConfig()">บันทึกและไปต่อ →</button>
+      <div class="info-box">
+        <strong>ตั้งค่าครั้งเดียว (~5 นาที):</strong><br>
+        <span class="step">1</span>เปิด <a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a> → New Project<br>
+        <span class="step">2</span>APIs &amp; Services → Enable: <strong>Google Sheets API</strong><br>
+        <span class="step">3</span>Credentials → Create OAuth 2.0 Client ID → Web Application<br>
+        <span class="step">4</span>ใส่ URL ของเว็บนี้ใน <strong>Authorized JavaScript Origins</strong><br>
+        <span class="step">5</span>Copy Client ID → วางด้านบน ✅
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ═══ SCREEN: AUTH ═══ -->
 <div class="scr hidden" id="scrAuth">
-  <div class="sc">
-    <div class="logo"><div class="logo-ic">🍽️</div><h1 id="authAppName">FoodCost Pro</h1><p>ระบบคำนวณต้นทุนอาหาร</p></div>
-    <button class="g-btn" onclick="signIn()">
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
-      Sign in with Google
-    </button>
-    <div style="margin-top:14px;text-align:center">
-      <a href="#" onclick="showScr('scrCfg')" style="font-size:12px;color:var(--mu)">← เปลี่ยน Client ID</a>
+  <div class="scr-panel-l">
+    <div class="scr-panel-l-inner">
+      <div class="big-icon">🍽️</div>
+      <h1 id="authAppName">FoodCost Pro</h1>
+      <p>ระบบคำนวณต้นทุนอาหารมืออาชีพ</p>
+      <div class="features">
+        <div class="feat"><span>🔒</span><span>ปลอดภัยด้วย Google OAuth 2.0</span></div>
+        <div class="feat"><span>📊</span><span>ข้อมูลเก็บใน Google Sheets ของคุณ</span></div>
+        <div class="feat"><span>🌐</span><span>เข้าใช้งานได้ทุกอุปกรณ์</span></div>
+      </div>
     </div>
-    <div class="info-box" style="text-align:center">
-      ข้อมูลทั้งหมดเก็บใน <strong>Google Sheets ของคุณ</strong><br>
-      ปลอดภัย 100% — ไม่มีเซิร์ฟเวอร์กลาง
+  </div>
+  <div class="scr-panel-r">
+    <div class="sc">
+      <div class="sc-mini-logo">
+        <div class="mic">🍽️</div>
+        <div><h2 id="authAppName2">FoodCost Pro</h2><p>ระบบคำนวณต้นทุนอาหาร</p></div>
+      </div>
+      <button class="g-btn" onclick="signIn()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+        Sign in with Google
+      </button>
+      <div style="margin-top:16px;text-align:center">
+        <a href="#" onclick="showScr('scrCfg')" style="font-size:12px;color:var(--mu)">← เปลี่ยน Client ID</a>
+      </div>
+      <div class="info-box" style="text-align:center;margin-top:16px">
+        ข้อมูลทั้งหมดเก็บใน <strong>Google Sheets ของคุณ</strong><br>
+        ปลอดภัย 100% — ไม่มีเซิร์ฟเวอร์กลาง
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ═══ SCREEN: SHEETS SETUP ═══ -->
 <div class="scr hidden" id="scrSheets">
-  <div class="sc">
-    <div class="logo"><div class="logo-ic">📊</div><h1>เชื่อมต่อ Google Sheets</h1><p id="sheetsWelcome">ยินดีต้อนรับ!</p></div>
-    <div id="sheetsForm">
-      <div class="fg">
-        <label>ลิงก์ Google Sheets ของคุณ</label>
-        <input id="sheetsUrl" type="text" placeholder="https://docs.google.com/spreadsheets/d/...">
-        <div class="fh">สร้าง Sheets ใหม่ที่ <a href="https://sheets.new" target="_blank">sheets.new</a> แล้วค้ดลอก URL มาวาง</div>
+  <div class="scr-panel-l">
+    <div class="scr-panel-l-inner">
+      <div class="big-icon">📊</div>
+      <h1>เชื่อมต่อ Google Sheets</h1>
+      <p>ระบบจะสร้างตารางทั้งหมดให้อัตโนมัติ<br>ไม่ต้องตั้งค่าอะไรเพิ่ม</p>
+      <div class="features">
+        <div class="feat"><span>🧂</span><span>ตารางวัตถุดิบ (Ingredients)</span></div>
+        <div class="feat"><span>📋</span><span>ตารางสูตรอาหาร (Recipes)</span></div>
+        <div class="feat"><span>📦</span><span>ตารางสต๊อก (Stock)</span></div>
+        <div class="feat"><span>📈</span><span>ประวัติราคาและการสั่งซื้อ</span></div>
       </div>
-      <div style="background:var(--wnl);border-radius:9px;padding:11px;font-size:12px;color:#92400e;margin-bottom:14px">
-        ⚠️ Sheets ต้องเป็นของบัญชี Google ที่ล็อกอินอยู่ หรือแชร์ให้บัญชีนั้น edit ได้
-      </div>
-      <button class="btn bp" style="width:100%;justify-content:center;padding:13px" onclick="connectSheets()">🔗 เชื่อมต่อ</button>
-      <div style="text-align:center;margin-top:12px"><a href="#" onclick="signOut()" style="font-size:12px;color:var(--mu)">← ออกจากระบบ</a></div>
     </div>
-    <div id="sheetsLoading" class="hidden" style="text-align:center;padding:20px">
-      <div style="font-size:32px">⏳</div><div style="font-weight:600;margin-top:8px">กำลังสร้างตาราง...</div>
+  </div>
+  <div class="scr-panel-r">
+    <div class="sc">
+      <div class="sc-mini-logo">
+        <div class="mic">📊</div>
+        <div><h2>Google Sheets</h2><p id="sheetsWelcome">ยินดีต้อนรับ!</p></div>
+      </div>
+      <div id="sheetsForm">
+        <div class="fg">
+          <label>ลิงก์ Google Sheets ของคุณ</label>
+          <input id="sheetsUrl" type="text" placeholder="https://docs.google.com/spreadsheets/d/...">
+          <div class="fh">สร้าง Sheets ใหม่ที่ <a href="https://sheets.new" target="_blank">sheets.new</a> แล้วคัดลอก URL มาวาง</div>
+        </div>
+        <div style="background:var(--wnl);border-radius:9px;padding:11px;font-size:12px;color:#92400e;margin-bottom:16px">
+          ⚠️ Sheets ต้องเป็นของบัญชี Google ที่ล็อกอินอยู่ หรือแชร์ให้บัญชีนั้น edit ได้
+        </div>
+        <button class="btn bp" style="width:100%;justify-content:center;padding:14px" onclick="connectSheets()">🔗 เชื่อมต่อ</button>
+        <div style="text-align:center;margin-top:14px"><a href="#" onclick="signOut()" style="font-size:12px;color:var(--mu)">← ออกจากระบบ</a></div>
+      </div>
+      <div id="sheetsLoading" class="hidden" style="text-align:center;padding:32px">
+        <div style="font-size:40px;margin-bottom:10px">⏳</div>
+        <div style="font-weight:700;font-size:15px">กำลังสร้างตาราง...</div>
+        <div style="font-size:12px;color:var(--mu);margin-top:6px">โปรดรอสักครู่</div>
+      </div>
     </div>
   </div>
 </div>
@@ -222,11 +350,12 @@ tr:hover td{background:#f8fafc}
     <div class="tb-title" id="pgTitle">📊 Dashboard</div>
     <div style="display:flex;align-items:center;gap:8px">
       <span class="synb" id="synBdg">✓ พร้อม</span>
-      <button class="btn bg_ bsm" onclick="loadAll()">🔄</button>
+      <button class="btn bg_ bsm" onclick="loadAll()">🔄 รีโหลด</button>
     </div>
   </div>
   <div class="cont">
 
+    <!-- DASHBOARD -->
     <div class="sec act" id="sec-dashboard">
       <div class="sg" id="dashStats"></div>
       <div class="g2">
@@ -236,52 +365,83 @@ tr:hover td{background:#f8fafc}
       <div class="card"><div class="ch"><div class="ct">📈 ค่าใช้จ่ายรายเดือน</div></div><div class="cb"><div class="cw"><canvas id="cMonth"></canvas></div></div></div>
     </div>
 
+    <!-- INGREDIENTS -->
     <div class="sec" id="sec-ingredients">
-      <div class="card"><div class="ch"><div class="ct">🧂 วัตถุดิบ</div><button class="btn bp bsm" onclick="openIng()">+ เพิ่ม</button></div>
-        <div class="tw"><table><thead><tr><th>ชื่อ</th><th>หน่วย</th><th>ราคา/หน่วย</th><th>ราคา/พอร์ชัน</th><th>หมวด</th><th>แนวโน้ม</th><th></th></tr></thead><tbody id="ingTb"></tbody></table></div></div>
+      <div class="card">
+        <div class="ch">
+          <div class="ct">🧂 วัตถุดิบทั้งหมด</div>
+          <button class="btn bp bsm" onclick="openIng()">+ เพิ่มวัตถุดิบ</button>
+        </div>
+        <div class="ing-stats" id="ingStats">
+          <div class="ing-stat"><div class="ing-stat-val" id="isTot">0</div><div class="ing-stat-lbl">รายการทั้งหมด</div></div>
+          <div class="ing-stat"><div class="ing-stat-val" id="isCat">0</div><div class="ing-stat-lbl">หมวดหมู่</div></div>
+          <div class="ing-stat"><div class="ing-stat-val" id="isAvg">฿0</div><div class="ing-stat-lbl">ราคาเฉลี่ย/หน่วย</div></div>
+          <div class="ing-stat"><div class="ing-stat-val" id="isSup">0</div><div class="ing-stat-lbl">ผู้จำหน่าย</div></div>
+        </div>
+        <div class="ing-toolbar">
+          <div class="ing-search"><input id="ingSearch" placeholder="ค้นหาวัตถุดิบ..." oninput="filterIngs()" /></div>
+          <div class="ing-filter"><select id="ingCatFilter" onchange="filterIngs()"><option value="">หมวดหมู่ทั้งหมด</option><option>เนื้อสัตว์</option><option>ผัก/ผลไม้</option><option>วัตถุดิบแห้ง</option><option>เครื่องปรุง</option><option>นม/ไข่</option><option>อื่นๆ</option></select></div>
+          <div class="ing-count" id="ingCount"></div>
+        </div>
+        <div class="tw">
+          <table>
+            <thead><tr><th>#</th><th>ชื่อวัตถุดิบ</th><th>หมวด</th><th>หน่วยหลัก</th><th>ราคา/หน่วย</th><th>หน่วยปรุง</th><th>ราคา/หน่วยปรุง</th><th>แนวโน้ม</th><th style="text-align:center">จัดการ</th></tr></thead>
+            <tbody id="ingTb"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
 
+    <!-- RECIPES -->
     <div class="sec" id="sec-recipes">
-      <div class="card"><div class="ch"><div class="ct">📋 สูตรอาหาร</div><button class="btn bp bsm" onclick="openRec()">+ เพิ่ม</button></div>
-        <div id="recGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;padding:16px"></div></div>
+      <div class="card"><div class="ch"><div class="ct">📋 สูตรอาหาร</div><button class="btn bp bsm" onclick="openRec()">+ เพิ่มสูตร</button></div>
+        <div id="recGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;padding:16px"></div></div>
     </div>
 
+    <!-- STOCK -->
     <div class="sec" id="sec-stock">
-      <div class="card"><div class="ch"><div class="ct">📦 สต๊อก</div><button class="btn bp bsm" onclick="openStk()">+ อัปเดต</button></div>
-        <div class="tw"><table><thead><tr><th>วัตถุดิบ</th><th>มีในสต๊อก</th><th>ต่ำสุด</th><th>สถานะ</th><th>มูลค่า</th><th></th></tr></thead><tbody id="stkTb"></tbody></table></div></div>
+      <div class="card"><div class="ch"><div class="ct">📦 สต๊อก</div><button class="btn bp bsm" onclick="openStk()">+ อัปเดตสต๊อก</button></div>
+        <div class="tw"><table><thead><tr><th>วัตถุดิบ</th><th>มีในสต๊อก</th><th>ขั้นต่ำ</th><th>สถานะ</th><th>มูลค่า</th><th style="text-align:center">จัดการ</th></tr></thead><tbody id="stkTb"></tbody></table></div></div>
     </div>
 
+    <!-- PRICE HISTORY -->
     <div class="sec" id="sec-pricehistory">
-      <div class="card" style="margin-bottom:16px">
-        <div class="ch"><div class="ct">📈 กราฟราคา</div>
-          <select id="phSel" onchange="renderPChart()" style="width:160px"><option value="">-- เลือก --</option></select></div>
+      <div class="card" style="margin-bottom:18px">
+        <div class="ch"><div class="ct">📈 กราฟราคาวัตถุดิบ</div>
+          <select id="phSel" onchange="renderPChart()" style="width:180px"><option value="">-- เลือกวัตถุดิบ --</option></select></div>
         <div class="cb"><div class="cw"><canvas id="cPrice"></canvas></div></div></div>
-      <div class="card"><div class="ch"><div class="ct">🕐 บันทึกเปลี่ยนแปลงราคา</div></div>
-        <div class="tw"><table><thead><tr><th>วันที่</th><th>วัตถุดิบ</th><th>ราคาเก่า</th><th>ราคาใหม่</th><th>หน่วย</th><th>เปลี่ยน</th></tr></thead><tbody id="phTb"></tbody></table></div></div>
+      <div class="card"><div class="ch"><div class="ct">🕐 บันทึกการเปลี่ยนแปลงราคา</div></div>
+        <div class="tw"><table><thead><tr><th>วันที่</th><th>วัตถุดิบ</th><th>ราคาเก่า</th><th>ราคาใหม่</th><th>หน่วย</th><th>เปลี่ยน%</th></tr></thead><tbody id="phTb"></tbody></table></div></div>
     </div>
 
+    <!-- ORDER LOG -->
     <div class="sec" id="sec-orderlog">
       <div class="sg" id="ordStats" style="grid-template-columns:repeat(3,1fr)"></div>
-      <div class="card" style="margin-bottom:16px"><div class="ch"><div class="ct">📊 ค่าใช้จ่ายตามหมวด</div></div><div class="cb"><div class="cw"><canvas id="cOrdCat"></canvas></div></div></div>
-      <div class="card"><div class="ch"><div class="ct">🛒 รายการสั่งซื้อ</div><button class="btn bp bsm" onclick="openOrd()">+ บันทึก</button></div>
-        <div class="tw"><table><thead><tr><th>วันที่</th><th>วัตถุดิบ</th><th>จำนวน</th><th>หน่วย</th><th>ราคา/หน่วย</th><th>รวม</th><th>ผู้จำหน่าย</th><th>หมายเหตุ</th><th></th></tr></thead><tbody id="ordTb"></tbody></table></div></div>
+      <div class="g2" style="margin-bottom:18px">
+        <div class="card" style="margin:0"><div class="ch"><div class="ct">📊 ค่าใช้จ่ายตามหมวด</div></div><div class="cb"><div class="cw"><canvas id="cOrdCat"></canvas></div></div></div>
+        <div class="card" style="margin:0"><div class="ch"><div class="ct">📅 ค่าใช้จ่ายรายเดือน</div></div><div class="cb"><div class="cw"><canvas id="cOrdMonth"></canvas></div></div></div>
+      </div>
+      <div class="card"><div class="ch"><div class="ct">🛒 รายการสั่งซื้อ</div><button class="btn bp bsm" onclick="openOrd()">+ บันทึกสั่งซื้อ</button></div>
+        <div class="tw"><table><thead><tr><th>วันที่</th><th>วัตถุดิบ</th><th>จำนวน</th><th>หน่วย</th><th>ราคา/หน่วย</th><th>รวม</th><th>ผู้จำหน่าย</th><th>หมายเหตุ</th><th style="text-align:center">จัดการ</th></tr></thead><tbody id="ordTb"></tbody></table></div></div>
     </div>
 
+    <!-- COST ANALYSIS -->
     <div class="sec" id="sec-costanalysis">
-      <div class="card" style="margin-bottom:16px"><div class="ch"><div class="ct">💰 ต้นทุนแต่ละเมนู</div></div>
-        <div id="costCards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;padding:16px"></div></div>
-      <div class="card"><div class="ch"><div class="ct">📊 Food Cost % เปรียบเทียบ</div></div><div class="cb"><div class="cw" style="height:260px"><canvas id="cFC"></canvas></div></div></div>
+      <div class="card" style="margin-bottom:18px"><div class="ch"><div class="ct">💰 วิเคราะห์ต้นทุนแต่ละเมนู</div></div>
+        <div id="costCards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;padding:16px"></div></div>
+      <div class="card"><div class="ch"><div class="ct">📊 Food Cost % เปรียบเทียบทุกเมนู</div></div><div class="cb"><div class="cw" style="height:280px"><canvas id="cFC"></canvas></div></div></div>
     </div>
 
+    <!-- REPORTS -->
     <div class="sec" id="sec-reports">
       <div class="sg" id="repStats"></div>
       <div class="g2">
-        <div class="card"><div class="ch"><div class="ct">📈 สรุปต้นทุน</div></div><div class="cb" id="repCost"></div></div>
+        <div class="card"><div class="ch"><div class="ct">📈 สรุปต้นทุนเมนู</div></div><div class="cb" id="repCost"></div></div>
         <div class="card"><div class="ch"><div class="ct">📦 สรุปสต๊อก</div></div><div class="cb" id="repStk"></div></div>
       </div>
-      <div style="text-align:center;margin-top:8px;display:flex;gap:8px;justify-content:center">
+      <div style="text-align:center;margin-top:8px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <button class="btn bg_" onclick="exportCSV()">⬇️ Export CSV</button>
-        <button class="btn bg_" onclick="openSheetsLink()">📊 เปิด Sheets</button>
+        <button class="btn bg_" onclick="openSheetsLink()">📊 เปิด Google Sheets</button>
         <button class="btn" style="background:var(--wnl);color:var(--wn);border:1.5px solid var(--wn)" onclick="confirmDemo()">🎲 โหลดข้อมูลตัวอย่าง</button>
       </div>
     </div>
@@ -297,10 +457,10 @@ tr:hover td{background:#f8fafc}
       <div class="fr"><div class="fg"><label>ชื่อวัตถุดิบ *</label><input id="iName" placeholder="เช่น ไก่สด"></div>
         <div class="fg"><label>หมวด</label><select id="iCat"><option>เนื้อสัตว์</option><option>ผัก/ผลไม้</option><option>วัตถุดิบแห้ง</option><option>เครื่องปรุง</option><option>นม/ไข่</option><option>อื่นๆ</option></select></div></div>
       <div class="fr"><div class="fg"><label>หน่วยหลัก</label><select id="iUnit"><option>กก.</option><option>กรัม</option><option>ลิตร</option><option>มล.</option><option>ชิ้น</option><option>กล่อง</option><option>ถุง</option></select></div>
-        <div class="fg"><label>ราคา/หน่วยหลัก (฿)</label><input id="iPrice" type="number" step="0.01"></div></div>
+        <div class="fg"><label>ราคา/หน่วยหลัก (฿)</label><input id="iPrice" type="number" step="0.01" placeholder="0.00"></div></div>
       <div class="fr"><div class="fg"><label>หน่วยทำอาหาร</label><select id="iPUnit"><option>กรัม</option><option>มล.</option><option>ชิ้น</option><option>ช้อนชา</option><option>ช้อนโต๊ะ</option><option>ถ้วย</option></select></div>
-        <div class="fg"><label>ราคา/หน่วยทำอาหาร (฿)</label><input id="iPPrice" type="number" step="0.001"></div></div>
-      <div class="fg"><label>ผู้จำหน่าย</label><input id="iSup" placeholder="ชื่อผู้จำหน่าย"></div>
+        <div class="fg"><label>ราคา/หน่วยทำอาหาร (฿)</label><input id="iPPrice" type="number" step="0.001" placeholder="0.000"></div></div>
+      <div class="fg"><label>ผู้จำหน่าย</label><input id="iSup" placeholder="ชื่อผู้จำหน่าย (ไม่บังคับ)"></div>
     </div>
     <div class="mf"><button class="btn bg_" onclick="closeM('mIng')">ยกเลิก</button><button class="btn bp" onclick="saveIng()">💾 บันทึก</button></div>
   </div>
@@ -309,16 +469,18 @@ tr:hover td{background:#f8fafc}
 <div class="mb" id="mRec">
   <div class="mo" style="max-width:560px"><div class="mh"><div class="mt" id="mRecT">เพิ่มสูตรอาหาร</div><button class="mc" onclick="closeM('mRec')">✕</button></div>
     <div class="mbd"><input type="hidden" id="rId">
-      <div class="fr"><div class="fg"><label>ชื่อเมนู *</label><input id="rName"></div>
+      <div class="fr"><div class="fg"><label>ชื่อเมนู *</label><input id="rName" placeholder="เช่น ข้าวผัดกุ้ง"></div>
         <div class="fg"><label>ประเภท</label><select id="rCat"><option>อาหารจานหลัก</option><option>อาหารเช้า</option><option>ของหวาน</option><option>เครื่องดื่ม</option><option>ของทานเล่น</option><option>อื่นๆ</option></select></div></div>
-      <div class="fr"><div class="fg"><label>ราคาขาย (฿)</label><input id="rPrice" type="number" step="0.01" oninput="updPrev()"></div>
-        <div class="fg"><label>ทำได้กี่ที่</label><input id="rYield" type="number" value="1"></div></div>
-      <div class="fg"><label>หมายเหตุ</label><textarea id="rNote" rows="2"></textarea></div>
+      <div class="fr"><div class="fg"><label>ราคาขาย (฿)</label><input id="rPrice" type="number" step="0.01" oninput="updPrev()" placeholder="0.00"></div>
+        <div class="fg"><label>ทำได้กี่ที่</label><input id="rYield" type="number" value="1" placeholder="1"></div></div>
+      <div class="fg"><label>หมายเหตุ</label><textarea id="rNote" rows="2" placeholder="บันทึกเพิ่มเติม..."></textarea></div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <strong style="font-size:13px">ส่วนผสม</strong><button class="btn bg_ bsm" onclick="addIL()">+ เพิ่ม</button></div>
+        <strong style="font-size:13px">ส่วนผสม</strong><button class="btn bg_ bsm" onclick="addIL()">+ เพิ่มส่วนผสม</button></div>
       <div id="iLines"></div>
-      <div style="background:var(--bg);border-radius:8px;padding:10px;font-size:13px;margin-top:8px">
-        ต้นทุน: <strong id="pvCost">฿0.00</strong> | Food Cost: <strong id="pvFC">0%</strong></div>
+      <div style="background:var(--bg);border-radius:10px;padding:12px;font-size:13px;margin-top:10px;display:flex;gap:16px;justify-content:center">
+        <span>ต้นทุน: <strong id="pvCost">฿0.00</strong></span>
+        <span>Food Cost: <strong id="pvFC">0%</strong></span>
+      </div>
     </div>
     <div class="mf"><button class="btn bg_" onclick="closeM('mRec')">ยกเลิก</button><button class="btn bp" onclick="saveRec()">💾 บันทึก</button></div>
   </div>
@@ -328,24 +490,24 @@ tr:hover td{background:#f8fafc}
   <div class="mo"><div class="mh"><div class="mt">อัปเดตสต๊อก</div><button class="mc" onclick="closeM('mStk')">✕</button></div>
     <div class="mbd">
       <div class="fg"><label>วัตถุดิบ</label><select id="sIng"></select></div>
-      <div class="fr"><div class="fg"><label>จำนวนในสต๊อก</label><input id="sQty" type="number" step="0.01"></div>
-        <div class="fg"><label>ขั้นต่ำ</label><input id="sMin" type="number" step="0.01"></div></div>
+      <div class="fr"><div class="fg"><label>จำนวนในสต๊อก</label><input id="sQty" type="number" step="0.01" placeholder="0"></div>
+        <div class="fg"><label>จำนวนขั้นต่ำ</label><input id="sMin" type="number" step="0.01" placeholder="0"></div></div>
     </div>
     <div class="mf"><button class="btn bg_" onclick="closeM('mStk')">ยกเลิก</button><button class="btn bp" onclick="saveStk()">💾 บันทึก</button></div>
   </div>
 </div>
 
 <div class="mb" id="mOrd">
-  <div class="mo"><div class="mh"><div class="mt">บันทึกสั่งซื้อ</div><button class="mc" onclick="closeM('mOrd')">✕</button></div>
+  <div class="mo"><div class="mh"><div class="mt">บันทึกการสั่งซื้อ</div><button class="mc" onclick="closeM('mOrd')">✕</button></div>
     <div class="mbd">
       <div class="fr"><div class="fg"><label>วันที่</label><input id="oDate" type="date"></div>
         <div class="fg"><label>วัตถุดิบ</label><select id="oIng"></select></div></div>
-      <div class="fr"><div class="fg"><label>จำนวน</label><input id="oQty" type="number" step="0.01" oninput="calcOT()"></div>
-        <div class="fg"><label>หน่วย</label><input id="oUnit"></div></div>
-      <div class="fr"><div class="fg"><label>ราคา/หน่วย (฿)</label><input id="oPPU" type="number" step="0.01" oninput="calcOT()"></div>
-        <div class="fg"><label>รวม (฿)</label><input id="oTotal" readonly style="background:#f8fafc"></div></div>
-      <div class="fr"><div class="fg"><label>ผู้จำหน่าย</label><input id="oSup"></div>
-        <div class="fg"><label>หมายเหตุ</label><input id="oNote"></div></div>
+      <div class="fr"><div class="fg"><label>จำนวน</label><input id="oQty" type="number" step="0.01" oninput="calcOT()" placeholder="0"></div>
+        <div class="fg"><label>หน่วย</label><input id="oUnit" placeholder="กก."></div></div>
+      <div class="fr"><div class="fg"><label>ราคา/หน่วย (฿)</label><input id="oPPU" type="number" step="0.01" oninput="calcOT()" placeholder="0.00"></div>
+        <div class="fg"><label>ยอดรวม (฿)</label><input id="oTotal" readonly style="background:#f8fafc;color:var(--ok);font-weight:700"></div></div>
+      <div class="fr"><div class="fg"><label>ผู้จำหน่าย</label><input id="oSup" placeholder="ชื่อผู้จำหน่าย"></div>
+        <div class="fg"><label>หมายเหตุ</label><input id="oNote" placeholder="บันทึก..."></div></div>
     </div>
     <div class="mf"><button class="btn bg_" onclick="closeM('mOrd')">ยกเลิก</button><button class="btn bp" onclick="saveOrd()">💾 บันทึก</button></div>
   </div>
@@ -404,7 +566,7 @@ function saveConfig() {
 }
 
 function setAppName() {
-  ['authAppName','sbTitle'].forEach(id => { const e=doc(id); if(e) e.textContent=APP_NAME; });
+  ['authAppName','authAppName2','sbTitle'].forEach(id => { const e=doc(id); if(e) e.textContent=APP_NAME; });
 }
 
 // ═══════════════════════════════════════
@@ -600,7 +762,33 @@ function renderDash(){
 function sc_(ic,bg,lb,val,sub,col){return`<div class="sc2"><div class="sico" style="background:${bg}">${ic}</div><div class="sl">${lb}</div><div class="sv2"${col?` style="color:${col}"`:''}">${val}</div><div class="ss">${sub}</div></div>`;}
 
 // ─── INGREDIENTS ───
-function renderIngs(){doc('ingTb').innerHTML=db.ingredients.length?db.ingredients.map(i=>{const tr=trd(i.id);return`<tr><td><strong>${esc(i.name)}</strong>${i.supplier?`<div style="font-size:11px;color:var(--mu)">${esc(i.supplier)}</div>`:''}</td><td>${esc(i.unit)}</td><td>฿${fmt(i.price_per_unit)}</td><td>฿${fmt(i.price_per_portion)}/${esc(i.portion_unit||i.unit)}</td><td><span class="bdg bin">${esc(i.category||'—')}</span></td><td class="${tr.c}">${tr.ic} ${tr.p}</td><td class="acts"><button class="ib" onclick="openIng('${i.id}')">✏️</button><button class="ib dl" onclick="delIng('${i.id}')">🗑️</button></td></tr>`;}).join(''):`<tr><td colspan="7">${emp('🧂','ยังไม่มีวัตถุดิบ','คลิก "+ เพิ่ม"')}</td></tr>`;}
+function renderIngs(){
+  // Update stats
+  const cats=new Set(db.ingredients.map(i=>i.category||'อื่นๆ'));
+  const sups=new Set(db.ingredients.filter(i=>i.supplier).map(i=>i.supplier));
+  const avgP=db.ingredients.length?db.ingredients.reduce((s,i)=>s+i.price_per_unit,0)/db.ingredients.length:0;
+  const isTot=doc('isTot'),isCat=doc('isCat'),isAvg=doc('isAvg'),isSup=doc('isSup');
+  if(isTot)isTot.textContent=db.ingredients.length;
+  if(isCat)isCat.textContent=cats.size;
+  if(isAvg)isAvg.textContent='฿'+fmt(avgP);
+  if(isSup)isSup.textContent=sups.size;
+  // Repopulate category filter
+  const cf=doc('ingCatFilter');
+  if(cf){const cur=cf.value;cf.innerHTML='<option value="">หมวดหมู่ทั้งหมด</option>';[...cats].sort().forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;cf.appendChild(o);});if(cur)cf.value=cur;}
+  filterIngs();
+}
+function filterIngs(){
+  const q=(doc('ingSearch')?.value||'').toLowerCase();
+  const cat=doc('ingCatFilter')?.value||'';
+  const filtered=db.ingredients.filter(i=>{
+    const matchQ=!q||i.name.toLowerCase().includes(q)||(i.supplier||'').toLowerCase().includes(q)||(i.category||'').toLowerCase().includes(q);
+    const matchC=!cat||i.category===cat;
+    return matchQ&&matchC;
+  });
+  const cnt=doc('ingCount');if(cnt)cnt.textContent=filtered.length+'/'+db.ingredients.length+' รายการ';
+  const CAT_COLORS={'เนื้อสัตว์':'#fee2e2','ผัก/ผลไม้':'#dcfce7','วัตถุดิบแห้ง':'#fef3c7','เครื่องปรุง':'#dbeafe','นม/ไข่':'#ede9fe','อาหารทะเล':'#cffafe','แป้ง/ข้าว':'#fef9c3','น้ำมัน/เครื่องปรุง':'#ffe4e6','ผัก':'#d1fae5','เครื่องเทศ':'#fce7f3','ผลไม้':'#fed7aa','โปรตีน':'#e0f2fe'};
+  doc('ingTb').innerHTML=filtered.length?filtered.map((i,idx)=>{const tr=trd(i.id);const bg=CAT_COLORS[i.category||'']||'#f1f5f9';return`<tr><td style="color:var(--mu);font-size:12px">${db.ingredients.indexOf(i)+1}</td><td><div style="font-weight:600;font-size:13px">${esc(i.name)}</div>${i.supplier?`<div style="font-size:11px;color:var(--mu);margin-top:1px">📦 ${esc(i.supplier)}</div>`:''}</td><td><span class="bdg" style="background:${bg};color:#334155">${esc(i.category||'—')}</span></td><td>${esc(i.unit)}</td><td style="font-weight:700">฿${fmt(i.price_per_unit)}</td><td style="color:var(--mu)">${esc(i.portion_unit||i.unit)}</td><td style="font-weight:600;color:var(--pr)">฿${fmt(i.price_per_portion)}</td><td class="${tr.c}" style="font-weight:600">${tr.ic} ${tr.p}</td><td><div class="acts" style="justify-content:center"><button class="ib" onclick="openIng('${i.id}')" title="แก้ไข">✏️</button><button class="ib dl" onclick="delIng('${i.id}')" title="ลบ">🗑️</button></div></td></tr>`;}).join(''):`<tr><td colspan="9">${emp('🧂',q||cat?'ไม่พบวัตถุดิบ':'ยังไม่มีวัตถุดิบ',q||cat?'ลองเปลี่ยนคำค้นหา':'คลิก "+ เพิ่มวัตถุดิบ"')}</td></tr>`;
+}
 function trd(id){const h=db.priceHistory.filter(x=>x.ingredient_id===id).sort((a,b)=>a.date.localeCompare(b.date));if(h.length<2)return{c:'tfl',ic:'—',p:''};const a=h[h.length-1],b=h[h.length-2],p=b.old_price>0?(a.new_price-b.old_price)/b.old_price*100:0;return p>0?{c:'tup',ic:'↑',p:'+'+p.toFixed(1)+'%'}:p<0?{c:'tdn',ic:'↓',p:p.toFixed(1)+'%'}:{c:'tfl',ic:'→',p:'0%'};}
 function openIng(id){clf(['iId','iName','iPrice','iPPrice','iSup']);if(id){const i=db.ingredients.find(x=>x.id===id);if(!i)return;doc('mIngT').textContent='แก้ไขวัตถุดิบ';doc('iId').value=i.id;doc('iName').value=i.name;doc('iCat').value=i.category||'อื่นๆ';doc('iUnit').value=i.unit;doc('iPrice').value=i.price_per_unit;doc('iPUnit').value=i.portion_unit||'กรัม';doc('iPPrice').value=i.price_per_portion;doc('iSup').value=i.supplier||'';}else{doc('mIngT').textContent='เพิ่มวัตถุดิบ';}openM('mIng');}
 async function saveIng(){
@@ -634,7 +822,8 @@ function renderPH(){const sel=doc('phSel'),cur=sel.value;sel.innerHTML='<option 
 function renderPChart(){const id=doc('phSel').value;if(charts.pr)charts.pr.destroy();const ctx=doc('cPrice').getContext('2d');if(!id){charts.pr=new Chart(ctx,{type:'line',data:{labels:[],datasets:[]},options:{responsive:true,maintainAspectRatio:false}});return;}const pts=db.priceHistory.filter(h=>h.ingredient_id===id).sort((a,b)=>a.date.localeCompare(b.date));const ing=db.ingredients.find(i=>i.id===id);charts.pr=new Chart(ctx,{type:'line',data:{labels:pts.map(p=>p.date),datasets:[{label:`ราคา ${ing?.name||''}`,data:pts.map(p=>p.new_price),borderColor:'#2563eb',backgroundColor:'rgba(37,99,235,.1)',pointRadius:5,tension:.3,fill:true}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:false,ticks:{callback:v=>'฿'+v}}}}});}
 
 // ─── ORDER LOG ───
-function renderOrd(){const t30=db.orderLog.filter(o=>o.date>=daysAgo(30)).reduce((a,o)=>a+o.total_cost,0),tall=db.orderLog.reduce((a,o)=>a+o.total_cost,0);doc('ordStats').innerHTML=[sc_('🛒','#dbeafe','สั่งซื้อ',db.orderLog.length,'รายการ',''),sc_('💰','#fef3c7','30 วัน','฿'+fmt(t30),'บาท',''),sc_('📊','#dcfce7','รวม','฿'+fmt(tall),'บาท','')].join('');const byCat={};db.orderLog.forEach(o=>{const i=db.ingredients.find(x=>x.id===o.ingredient_id);byCat[i?.category||'อื่นๆ']=(byCat[i?.category||'อื่นๆ']||0)+o.total_cost;});if(charts.oc)charts.oc.destroy();const cats=Object.keys(byCat);charts.oc=new Chart(doc('cOrdCat').getContext('2d'),{type:'doughnut',data:{labels:cats,datasets:[{data:cats.map(c=>byCat[c]),backgroundColor:['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}});const sorted=[...db.orderLog].sort((a,b)=>b.date.localeCompare(a.date));doc('ordTb').innerHTML=sorted.length?sorted.map(o=>`<tr><td>${o.date}</td><td><strong>${esc(o.ingredient_name)}</strong></td><td>${o.qty_ordered}</td><td>${esc(o.unit)}</td><td>฿${fmt(o.price_per_unit)}</td><td><strong>฿${fmt(o.total_cost)}</strong></td><td>${esc(o.supplier||'—')}</td><td>${esc(o.note||'—')}</td><td><button class="ib dl" onclick="delOrd('${o.id}')">🗑️</button></td></tr>`).join(''):`<tr><td colspan="9">${emp('🛒','ยังไม่มีรายการ','')}</td></tr>`;}
+function renderOrd(){const t30=db.orderLog.filter(o=>o.date>=daysAgo(30)).reduce((a,o)=>a+o.total_cost,0),tall=db.orderLog.reduce((a,o)=>a+o.total_cost,0);doc('ordStats').innerHTML=[sc_('🛒','#dbeafe','สั่งซื้อ',db.orderLog.length,'รายการ',''),sc_('💰','#fef3c7','30 วัน','฿'+fmt(t30),'บาท',''),sc_('📊','#dcfce7','รวม','฿'+fmt(tall),'บาท','')].join('');const byCat={};db.orderLog.forEach(o=>{const i=db.ingredients.find(x=>x.id===o.ingredient_id);byCat[i?.category||'อื่นๆ']=(byCat[i?.category||'อื่นๆ']||0)+o.total_cost;});if(charts.oc)charts.oc.destroy();const cats=Object.keys(byCat);charts.oc=new Chart(doc('cOrdCat').getContext('2d'),{type:'doughnut',data:{labels:cats,datasets:[{data:cats.map(c=>byCat[c]),backgroundColor:['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right'}}}});
+  const mo2={};db.orderLog.forEach(o=>{const m=(o.date||'').slice(0,7);if(m)mo2[m]=(mo2[m]||0)+o.total_cost;});const ms2=Object.keys(mo2).sort().slice(-6);if(charts.om)charts.om.destroy();const cOM=doc('cOrdMonth');if(cOM)charts.om=new Chart(cOM.getContext('2d'),{type:'bar',data:{labels:ms2.map(m=>m.slice(5)+'/'+m.slice(2,4)),datasets:[{label:'บาท',data:ms2.map(m=>mo2[m]),backgroundColor:'rgba(37,99,235,.7)',borderRadius:5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'฿'+fmt(v)}}}}});const sorted=[...db.orderLog].sort((a,b)=>b.date.localeCompare(a.date));doc('ordTb').innerHTML=sorted.length?sorted.map(o=>`<tr><td>${o.date}</td><td><strong>${esc(o.ingredient_name)}</strong></td><td>${o.qty_ordered}</td><td>${esc(o.unit)}</td><td>฿${fmt(o.price_per_unit)}</td><td><strong>฿${fmt(o.total_cost)}</strong></td><td>${esc(o.supplier||'—')}</td><td>${esc(o.note||'—')}</td><td><button class="ib dl" onclick="delOrd('${o.id}')">🗑️</button></td></tr>`).join(''):`<tr><td colspan="9">${emp('🛒','ยังไม่มีรายการ','')}</td></tr>`;}
 function openOrd(){clf(['oQty','oPPU','oTotal','oSup','oNote']);doc('oDate').value=today();const sel=doc('oIng');sel.innerHTML=db.ingredients.map(i=>`<option value="${i.id}" data-u="${i.unit}" data-p="${i.price_per_unit}">${esc(i.name)}</option>`).join('');sel.onchange=()=>{const o=sel.options[sel.selectedIndex];doc('oUnit').value=o.dataset.u||'';doc('oPPU').value=o.dataset.p||0;calcOT();};if(db.ingredients.length){const o=sel.options[0];doc('oUnit').value=o?.dataset.u||'';doc('oPPU').value=o?.dataset.p||0;}openM('mOrd');}
 function calcOT(){doc('oTotal').value=((+doc('oQty').value||0)*(+doc('oPPU').value||0)).toFixed(2);}
 async function saveOrd(){const ingId=doc('oIng').value,ing=db.ingredients.find(x=>x.id===ingId),date=doc('oDate').value,qty=+doc('oQty').value||0;if(!date||!qty){toast('กรุณากรอกวันที่และจำนวน','er');return;}const ppu=+doc('oPPU').value||0;const o={id:uid(),date,ingredient_id:ingId,ingredient_name:ing?.name||'',qty_ordered:qty,unit:doc('oUnit').value,price_per_unit:ppu,total_cost:qty*ppu,supplier:doc('oSup').value,note:doc('oNote').value};db.orderLog.push(o);closeM('mOrd');renderAll();await appendRow('OrderLog',[o.id,o.date,o.ingredient_id,o.ingredient_name,o.qty_ordered,o.unit,o.price_per_unit,o.total_cost,o.supplier,o.note]);toast('บันทึกแล้ว','ok');}
